@@ -111,8 +111,8 @@ get_destination
 
 # are we root?
 check_root
-backup_od
 export_users
 export_groups
+backup_od
 
 exit(0)
