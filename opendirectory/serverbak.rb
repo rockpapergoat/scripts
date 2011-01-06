@@ -43,14 +43,14 @@ def backup_od
   	    system "stty echo"
     end
   mkpassdb = "/usr/sbin/mkpassdb"
-  file = "/tmp/sacommands"
+  tmpfile = "/tmp/sacommands"
   commands=["dirserv:backupArchiveParams:archivePassword = #{@pass}", "dirserv:backupArchiveParams:archivePath = #{@dest}/odbackup-#{@date}", "dirserv:command = backupArchive"]
-  sacommands = File.open("#{file}", "w") do |f|
+  sacommands = File.open("#{tmpfile}", "w") do |f|
     f.puts commands.each {|command| command}
   end
-  system "/usr/sbin/serveradmin command < #{sacommands}"
+  system "/usr/sbin/serveradmin command < #{tmpfile}"
   system "#{mkpassdb} -backupdb #{@dest}/mkpassdb-#{@date}"
-  FileUtils.rm(file)
+  FileUtils.rm(tmpfile)
 end
 
 
