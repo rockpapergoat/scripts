@@ -41,25 +41,25 @@ def backup_od
   	rescue NoMethodError, Interrupt
   	    system "stty echo"
     end
-  mkpassdb=`which mkpassdb`
+  mkpassdb = "/usr/sbin/mkpassdb"
   commands=["dirserv:backupArchiveParams:archivePassword = #{@pass}", "dirserv:backupArchiveParams:archivePath = #{@dest}/odbackup-#{@date}", "dirserv:command = backupArchive"]
   commands.each do |command|
-    %x(/usr/sbin/serveradmin command #{command})
+    system "/usr/sbin/serveradmin command #{command}"
   end
-  %x(#{mkpassdb} -backupdb #{@dest}/mkpassdb-#{@date})
-  end
+  system "#{mkpassdb} -backupdb #{@dest}/mkpassdb-#{@date}"
 end
+
 
 def export_users
   begin
-    %x(/usr/bin/dsexport #{@dest}/users_#{@date} /LDAPv3/127.0.0.1 Users --N)
+    system "/usr/bin/dsexport #{@dest}/users_#{@date} /LDAPv3/127.0.0.1 Users --N"
   rescue Exception => e
   end
 end
 
 def export_groups
   begin
-    %x(/usr/bin/dsexport #{@dest}/groups_#{@date} /LDAPv3/127.0.0.1 Groups --N)
+    system "/usr/bin/dsexport #{@dest}/groups_#{@date} /LDAPv3/127.0.0.1 Groups --N"
   rescue Exception => e
   end
 end
@@ -74,8 +74,8 @@ end
 
 def backup_services
   begin
-    %x(/usr/sbin/serveradmin list).each do |service|
-      %x(/usr/sbin/serveradmin settings #{service} > #{@dest}/#{service}_#{@date})
+    system "/usr/sbin/serveradmin list".each do |service|
+      system "/usr/sbin/serveradmin settings #{service} > #{@dest}/#{service}_#{@date}"
     end
   rescue Exception => e
   end 
