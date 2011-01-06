@@ -79,7 +79,7 @@ end
 def backup_services
   begin
     %x(/usr/sbin/serveradmin list).each.chomp do |service|
-      system "/usr/sbin/serveradmin settings #{service.chomp} > #{@dest}/#{service.chomp}-#{@date}"
+      system "/usr/sbin/serveradmin settings #{service.chomp} > #{@dest}/#{service.chomp}_#{@date}"
     end
   rescue Exception => e
   end 
