@@ -79,7 +79,7 @@ end
 def backup_services
   begin
     system "/usr/sbin/serveradmin list".each do |service|
-      system "/usr/sbin/serveradmin settings #{service} > #{@dest}/#{service}_#{@date}"
+      system "/usr/sbin/serveradmin settings #{service} > #{@dest}/#{service}-#{@date}"
     end
   rescue Exception => e
   end 
@@ -111,6 +111,7 @@ get_destination
 
 # are we root?
 check_root
+backup_services
 export_users
 export_groups
 backup_od
