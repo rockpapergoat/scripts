@@ -34,7 +34,7 @@ end
 # get the password somehow or just set it explicitly (not secure)
 def backup_od
   begin
-  	puts "please type your admin password: "
+  	puts "Be sure to note this for later use.\nPlease type a password for the OD backup:"
   	    system "stty -echo"
   	    @pass = $stdin.gets.chomp
   	    system "stty echo"
