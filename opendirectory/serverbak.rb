@@ -14,7 +14,7 @@
 require 'optparse'
 
 def date_stamp
-  @date=Time.now.strftime("%y%m%d")
+  @date = Time.now.strftime("%y%m%d")
 end
 
 def set_destination
@@ -42,11 +42,14 @@ def backup_od
   	    system "stty echo"
     end
   mkpassdb = "/usr/sbin/mkpassdb"
+  file = "/tmp/sacommands"
   commands=["dirserv:backupArchiveParams:archivePassword = #{@pass}", "dirserv:backupArchiveParams:archivePath = #{@dest}/odbackup-#{@date}", "dirserv:command = backupArchive"]
-  commands.each do |command|
-    system "/usr/sbin/serveradmin command #{command}"
+  sacommands = File.open("#{file}", "w") do |f|
+    f.puts commands.each {|command| command}
   end
+  system "/usr/sbin/serveradmin command < #{sacommands}"
   system "#{mkpassdb} -backupdb #{@dest}/mkpassdb-#{@date}"
+  FileUtils.rm("#{sacommands}")
 end
 
 
