@@ -50,7 +50,7 @@ def backup_od
   end
   system "/usr/sbin/serveradmin command < #{sacommands}"
   system "#{mkpassdb} -backupdb #{@dest}/mkpassdb-#{@date}"
-  FileUtils.rm("#{sacommands}")
+  FileUtils.rm(file)
 end
 
 
