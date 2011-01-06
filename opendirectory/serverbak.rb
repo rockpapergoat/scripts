@@ -12,6 +12,7 @@
 # - Export of the OD Groups (date in name)
 
 require 'optparse'
+require 'fileutils'
 
 def date_stamp
   @date = Time.now.strftime("%y%m%d")
