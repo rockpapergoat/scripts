@@ -78,8 +78,11 @@ end
 
 def backup_services
   begin
+    if File.directory?("#{@dest}/services") == false
+        Dir.mkdir("#{@dest}/services")
+      end
     %x(/usr/sbin/serveradmin list).each do |service|
-      system "/usr/sbin/serveradmin settings #{service.chomp} > #{@dest}/#{service.chomp}_#{@date}"
+      system "/usr/sbin/serveradmin settings #{service.chomp} > #{@dest}/services/#{service.chomp}_#{@date}"
     end
   rescue Exception => e
   end 
