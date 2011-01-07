@@ -78,7 +78,7 @@ end
 
 def backup_services
   begin
-    %x(/usr/sbin/serveradmin list).each.chomp do |service|
+    %x(/usr/sbin/serveradmin list).each do |service|
       system "/usr/sbin/serveradmin settings #{service.chomp} > #{@dest}/#{service.chomp}_#{@date}"
     end
   rescue Exception => e
@@ -112,8 +112,10 @@ get_destination
 # are we root?
 check_root
 backup_services
+sleep(2)
 export_users
 export_groups
+sleep(1)
 backup_od
 
 exit(0)
