@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby -wKU
 # 110105, nate, initial draft of os x server config backup
+# 110106, updated with sleep statements and working service export method
 #
 # notes:
 # cf. http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/205950
